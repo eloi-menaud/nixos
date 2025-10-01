@@ -1,0 +1,7 @@
+{
+    "clipboard": "external",
+    "clipboardcopy": "wl-copy",
+    "clipboardpaste": "wl-paste",
+	"colorscheme": "my",
+	"wordwrap": true
+}

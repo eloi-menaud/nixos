@@ -1,0 +1,56 @@
+
+
+[font]
+size = 12
+
+[font.normal]
+family = "Terminus"
+
+[window.padding]
+x = 5
+y = 0
+
+[window]
+decorations = "None"
+opacity = 1
+
+[[keyboard.bindings]]
+key = "C"
+mods = "Control"
+action = "Copy"
+
+[[keyboard.bindings]]
+key = "V"
+mods = "Control"
+action = "Paste"
+
+[[keyboard.bindings]]
+key = "X"
+mods = "Control"
+chars = "\u0003"  # Ctrl+C (SIGINT)
+
+
+
+[colors.primary]
+background = '0x000000'
+foreground = '0xffffff'
+
+[colors.normal]
+black = '0x000000'
+red = '0xff293e'
+green = '0x1ff02a'
+yellow = '0xf0cb16'
+blue = '0x2489ef'
+magenta = '0x8924ef'
+cyan = '0x24ef89'
+white = '0x808080'
+
+[colors.bright]
+black = '0x808080'
+red = '0xf57088'
+green = '0xb2f570'
+yellow = '0xf5b270'
+blue = '0x70b2f5'
+magenta = '0xb270f5'
+cyan = '0x70f5b2'
+white = '0xffffff'
