@@ -1,7 +1,6 @@
 { config, pkgs, ... }: {
 	imports = [
 		./nvidia/conf.nix
-		./screencasting/conf.nix
 	];
 
 
@@ -25,7 +24,6 @@
 		pkgs.bc
 		pkgs.pipewire
 		pkgs.cudatoolkit
-        pkgs.xfce.thunar		
 
 											
 		# niri
@@ -74,14 +72,8 @@
 		# games
 		pkgs.prismlauncher
 
+        # other
 		pkgs.whitesur-cursors
-
-		pkgs.xdg-desktop-portal
-  	    pkgs.xdg-desktop-portal-gnome
-
-  	    pkgs.os-prober
-		pkgs.rofi
-
 	];
 
 	
@@ -108,8 +100,8 @@
 
 
 	# niri
-	services.xserver.enable = false;
-	services.displayManager.enable = false;
+	# services.xserver.enable = false;
+	# services.displayManager.enable = false;
 
 	# zsh
 	programs.zsh.enable = true;
@@ -133,7 +125,6 @@
 	virtualisation = {
 	  podman = { enable = true; };
 	};
-  	users.users.elwaaaah.extraGroups = [ "wheel" "podman" ];
 
 
 	# gnup
@@ -156,17 +147,17 @@
 	
 
 	# audio
-	security.rtkit.enable = true;
-	hardware.pulseaudio.enable = false;
-	services.pipewire = {
-	  alsa = {
-		  enable = true;
-		  support32Bit = true;
-	  };
-	    audio.enable = true;
-	    pulse.enable = true;
-	};
-  	services.pipewire.wireplumber.enable = true;
+	# security.rtkit.enable = true;
+	# hardware.pulseaudio.enable = false;
+	#services.pipewire = {
+	#  alsa = {
+	#	  enable = true;
+	#	  support32Bit = true;
+	#  };
+	#    audio.enable = true;
+	#    pulse.enable = true;
+	#};
+  	#services.pipewire.wireplumber.enable = true;
 
 
 }
