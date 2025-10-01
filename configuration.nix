@@ -41,18 +41,11 @@
 	};
 
 
-	# home-manager.useGlobalPkgs = true;
-	# home-manager.backupFileExtension = "bck";
-	# home-manager.users.elwaaaah.home.stateVersion = "25.05";
-	# home-manager.users.elwaaaah.home.sessionPath = [
-	# 	"$HOME/.local/bin"
-	# ];
-
 	# users
-	users.users.elwaaaah = {
+	users.users.eloi = {
 		isNormalUser = true;
 		description = "eloi menaud";
-		extraGroups = [ "networkmanager" "wheel"];
+		extraGroups = [ "networkmanager" "wheel" "podman" ];
 		packages = with pkgs; [];
 		shell = pkgs.zsh; 
 	};
