@@ -1,5 +1,6 @@
 #!/bin/sh
 
+echo "building home..."
 
 mkdir -p "/home/eloi/.config/alacritty"
 cp "/etc/nixos/alacritty/alacritty.toml" "/home/eloi/.config/alacritty/"
@@ -17,3 +18,8 @@ cp "/etc/nixos/micro/my.micro" "/home/eloi/.config/micro/colorschemes"
 mkdir -p "/home/eloi/.local/bin/"
 cp "/etc/nixos/custom-bin/edit-nixos.bash" "/home/eloi/.local/bin/edit-nixos"
 chmod +x "/home/eloi/.local/bin/edit-nixos"
+
+cp "/etc/nixos/custom-bin/i3-focus-roll.sh" "/home/eloi/.local/bin/i3-focus-roll"
+chmod +x "/home/eloi/.local/bin/i3-focus-roll"
+
+echo "OK"
