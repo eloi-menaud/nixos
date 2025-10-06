@@ -4,8 +4,17 @@
 	];
 
 
+	services.xserver.displayManager.startx.enable = true;
+	services.xserver.windowManager.i3.enable = true;
+
 	environment.systemPackages = [
-				
+
+		pkgs.i3
+		pkgs.xorg.xinit
+		pkgs.xorg.xauth
+		pkgs.hsetroot
+		pkgs.apple-cursor
+								
 		# utils
 		pkgs.nix-doc
 		pkgs.jq
@@ -19,18 +28,12 @@
 		pkgs.gettext
 		pkgs.greetd.tuigreet
 		pkgs.wireplumber
-		pkgs.wl-clipboard
 		pkgs.podman
 		pkgs.bc
 		pkgs.pipewire
 		pkgs.cudatoolkit
 
 											
-		# niri
-		pkgs.niri
-		pkgs.xwayland-satellite
-		pkgs.swaybg
-		
 		# terminal
 		pkgs.zsh
 		pkgs.micro
@@ -80,28 +83,18 @@
 	
  	programs.steam.enable = true;
 
-	system.activationScripts.monscript = {
-	  text = ''
-	    /etc/nixos/build-home.sh > /tmp/activation-log.sh 2>&1;
-	  '';
+	#build-home
+	systemd.services.build-home-postinstall = {
+	  description = "Building HOME post-install";
+	  wantedBy = [ "multi-user.target" ];
+	  serviceConfig = {
+	    ExecStart = "/etc/nixos/build-home.sh";
+	    Type = "oneshot";
+	    RemainAfterExit = false;
+	    User = "root";
+	  };
 	};
 
-	# build-home
-	# systemd.services.build-home-postinstall = {
-	#   description = "Building HOME post-install";
-	#   wantedBy = [ "multi-user.target" ];
-	#   serviceConfig = {
-	#     ExecStart = "/etc/nixos/build-home.sh";
-	#     Type = "oneshot";
-	#     RemainAfterExit = true;
-	#     User = "root";
-	#   };
-	# };
-
-
-	# niri
-	# services.xserver.enable = false;
-	# services.displayManager.enable = false;
 
 	# zsh
 	programs.zsh.enable = true;
@@ -145,25 +138,4 @@
 		};
 	};
 	
-
-	# audio
-	# security.rtkit.enable = true;
-	# hardware.pulseaudio.enable = false;
-	#services.pipewire = {
-	#  alsa = {
-	#	  enable = true;
-	#	  support32Bit = true;
-	#  };
-	#    audio.enable = true;
-	#    pulse.enable = true;
-	#};
-  	#services.pipewire.wireplumber.enable = true;
-
-
 }
-
-
-
-
-
-
