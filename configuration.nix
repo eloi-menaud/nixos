@@ -8,9 +8,23 @@
 	];
 
 	nix.settings.experimental-features = [ "nix-command" "flakes" ];
-	 
-	boot.loader.systemd-boot.enable = true;
-	boot.loader.efi.canTouchEfiVariables = true;
+	
+	# boot.loader.systemd-boot.enable = true;
+	# boot.loader.efi.canTouchEfiVariables = true;
+
+	boot.loader.grub = {
+	  enable = true;
+	  efiSupport = true;
+	  device = "nodev";
+	  useOSProber = true;
+	  configurationLimit = 20;
+	  default = "saved";
+	  timeout = 60;
+	  copyKernels = false;
+	  extraConfig = ''
+	    save_default=true
+	  '';
+	};
 
 	networking.hostName = "nixos-eloi";
 	networking.networkmanager.enable = true;
@@ -45,9 +59,9 @@
 	users.users.eloi = {
 		isNormalUser = true;
 		description = "eloi menaud";
-		extraGroups = [ "networkmanager" "wheel" "podman" ];
+		extraGroups = [ "networkmanager" "wheel" "podman" "video" "input" ];
 		packages = with pkgs; [];
-		shell = pkgs.zsh; 
+		shell = pkgs.zsh;
 	};
 
 
@@ -57,7 +71,7 @@
 	environment.systemPackages = [];
 
 	# secu
-	security.polkit.enable=true; 
+	security.polkit.enable=true;
 	security.sudo.enable = true;
 	security.wrappers.sudo.source = "${pkgs.sudo}/bin/sudo";
 	security.wrappers.sudo.owner = "root";
