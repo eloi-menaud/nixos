@@ -11,7 +11,7 @@ test -z $path && echo "Error : missing arg" && exit 1
 
 if test $path = "-l"
 then
-	tree /etc/nixos/ | sed '/director/d' | sed 's|/etc/nixos/||' | sed '/store/d'
+	tree -C /etc/nixos/ | sed '/director/d' | sed 's|/etc/nixos/||' | sed '/store/d'
 	exit 0
 fi
 

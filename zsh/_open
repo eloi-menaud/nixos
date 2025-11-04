@@ -1,0 +1,9 @@
+#compdef o
+
+local -a nix_bins
+nix_bins=(${(f)"$(find /run/current-system/sw/bin -maxdepth 1 -executable 2>/dev/null | sort -u | sed 's#^/run/current-system/sw/bin/##')"})
+
+echo "$nix_bins" > /tmp/log.compdef
+
+compadd -a nix_bins
+

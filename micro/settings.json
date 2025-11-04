@@ -1,7 +1,6 @@
 {
-    "clipboard": "external",
-    "clipboardcopy": "wl-copy",
-    "clipboardpaste": "wl-paste",
-	"colorscheme": "my",
-	"wordwrap": true
+  "colorscheme": "my",
+  "wordwrap": true,
+  "tabsize": 2,
+  "tabstospaces": true
 }

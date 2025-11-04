@@ -1,7 +1,20 @@
 {
-    "Alt-/": "lua:comment.comment",
-    "Alt-c": "Copy",
-	"Alt-v": "Paste",
-    "Alt-s": "Save,Quit",
-    "CtrlUnderscore": "lua:comment.comment"
+
+  "Alt-/": "lua:comment.comment",
+  "CtrlUnderscore": "lua:comment.comment",
+  "Tab": "IndentSelection|IndentLine",
+
+  "Ctrl-o": "StartOfLine",
+  "Ctrl-p": "StartOfText",
+  "Ctrl-c": "Copy",
+  "Ctrl-v": "Paste",
+  "Ctrl-l": "SelectLine",
+  "Ctrl-x": "Save,Quit",
+  "Ctrl-Z": "Redo",
+  "Ctrl-z": "Undo",
+  "Backspace": "Backspace",
+  "OldBackspace": "DeleteWordLeft",
+      
+  "Ctrl-Left": "WordLeft",
+  "Ctrl-Right": "WordRight"
 }

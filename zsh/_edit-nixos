@@ -1,0 +1,16 @@
+#compdef edit-nixos
+
+
+local -a files
+files=(${(f)"$(find /etc/nixos -type f -printf '%P\n' 2>/dev/null)"})
+
+
+local -a opts
+opts=(-l)
+
+# Si l’argument courant commence par un '-', on complète avec les options
+if [[ $words[CURRENT] == -* ]]; then
+  _values 'options' $opts
+else
+  _values 'fichiers' $files
+fi

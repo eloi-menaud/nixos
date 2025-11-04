@@ -1,0 +1,110 @@
+
+debug {
+    preview-render "screencast"
+}
+window-rule {
+    geometry-corner-radius 0
+    clip-to-geometry true
+    open-focused true
+}
+
+window-rule {
+	match app-id="kitty"
+	default-column-width { proportion 0.5; }
+}
+
+window-rule {
+	match title="^(Confirm|Rename|Push)"
+	open-floating true
+}
+window-rule {
+	match title="^(win)"
+	open-floating true
+}
+
+window-rule {
+	match title="monitoring"
+	open-floating true
+}
+
+
+spawn-at-startup "kitty"
+spawn-at-startup "firefox"
+spawn-at-startup "swaybg" "-i" "/etc/nixos/niri/wp.jpg"
+spawn-at-startup "xwayland-satellite"
+
+
+layout {
+    gaps 0
+
+    default-column-width { proportion 1.0; }
+
+	preset-column-widths {
+	    proportion 0.5
+	    proportion 1.0
+	}
+
+
+    focus-ring {
+    	width 0
+  	}
+
+  	border {
+  	    width 1
+  	    active-color   "#555"
+  	    inactive-color "#000"
+  	}
+}
+
+screenshot-path "~/storage/Screenshots/ from %m-%d-%H-%M.png"
+
+animations {
+    slowdown 0.5
+}
+
+overview {
+    zoom 0.3
+    backdrop-color "#101010"
+}
+
+binds {
+
+    Mod+Shift+Slash { show-hotkey-overlay; }
+    Mod+T                 hotkey-overlay-title="Open a Terminal: kitty"     { spawn "kitty"; }
+    Mod+space             hotkey-overlay-title="Overview"                   { toggle-overview; }
+    Mod+backspace         hotkey-overlay-title="Close current window"       { close-window; }
+    Mod+BracketLeft       hotkey-overlay-title="Focus Left window"          { focus-column-left; }
+    Mod+BracketRight      hotkey-overlay-title="Focus Right window"         { focus-column-right; }
+	Mod+BackSlash         hotkey-overlay-title="Switch window size"         { switch-preset-column-width; }
+    Mod+Ctrl+BracketLeft  hotkey-overlay-title="Move window to Left"        { move-column-left; }
+    Mod+Ctrl+BracketRight hotkey-overlay-title="Move window to Right"       { move-column-right; }
+    Mod+S                 hotkey-overlay-title="Screeshot"                  { screenshot; }
+    Mod+Escape            hotkey-overlay-title="Quit niri, got to tty"      { quit; }
+	Mod+Equal             hotkey-overlay-title="Volume up +5%"              { spawn "wpctl set-volume @DEFAULT_AUDIO_SINK@ 10%+"; }
+	Mod+Minus             hotkey-overlay-title="Volume up -5%"              { spawn "wpctl set-volume @DEFAULT_AUDIO_SINK@ 10%-"; }
+
+
+}
+
+environment {
+    DISPLAY ":0"
+    XDG_SESSION_TYPE "wayland"
+    XDG_CURRENT_DESKTOP "niri"
+    WAYLAND_DISPLAY "wayland-1"
+}
+
+//xwayland-satellite {
+//    path "/run/current-system/sw/bin/xwayland-satellite"
+//}
+
+cursor {
+    xcursor-theme "WhiteSur-cursors"
+    xcursor-size 10
+    hide-when-typing
+}
+
+hotkey-overlay {
+    skip-at-startup
+}
+
+prefer-no-csd

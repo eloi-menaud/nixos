@@ -1,32 +1,28 @@
 { config, pkgs, ... }:
-
 {
+	
 	imports =
 	[
 	    ./hardware-configuration.nix
 	    ./general.nix
 	];
 
+	
 	nix.settings.experimental-features = [ "nix-command" "flakes" ];
 	
-	# boot.loader.systemd-boot.enable = true;
-	# boot.loader.efi.canTouchEfiVariables = true;
-
-	boot.loader.grub = {
-	  enable = true;
-	  efiSupport = true;
-	  device = "nodev";
-	  useOSProber = true;
-	  configurationLimit = 20;
-	  default = "saved";
-	  timeout = 60;
-	  copyKernels = false;
-	  extraConfig = ''
-	    save_default=true
-	  '';
-	};
+	boot.loader.systemd-boot.enable = true;
+	boot.loader.efi.canTouchEfiVariables = true;
 
 	networking.hostName = "nixos-eloi";
+	networking.hosts = {
+		"192.168.3.248" = [
+		    # kubesleeper test env
+			"green.test.local" 
+			"blue.test.local"
+			"test.local"
+		];
+	};
+	
 	networking.networkmanager.enable = true;
 	networking.firewall = {
 	  enable = true;

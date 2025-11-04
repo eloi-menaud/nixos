@@ -1,21 +1,92 @@
-{ config, pkgs, ... }: {
+{ config, pkgs, lib, ... }:
+let
+  nurpkgs = import (builtins.fetchTarball "https://github.com/nix-community/NUR/archive/main.tar.gz") { inherit pkgs; };
+in
+{
 	imports = [
 		./nvidia/conf.nix
 	];
 
+	  
+    fonts.packages = [
+      pkgs.terminus_font_ttf
+      pkgs.terminus_font
+      pkgs.spleen
+      pkgs.tamzen
+      pkgs.tamsyn
+      pkgs.cozette
+    ];
+    fonts.fontconfig.localConf = ''
+<?xml version="1.0"?>
+<!DOCTYPE fontconfig SYSTEM "urn:fontconfig:fonts.dtd">
+<fontconfig>
+  <description>Accept bitmap fonts</description>
+<!-- Accept bitmap fonts -->
+ <selectfont>
+  <acceptfont>
+   <pattern>
+     <patelt name="outline"><bool>false</bool></patelt>
+   </pattern>
+  </acceptfont>
+ </selectfont>
+</fontconfig>
+  '';
 
-	services.xserver.displayManager.startx.enable = true;
-	services.xserver.windowManager.i3.enable = true;
+
+
+
+	# ------- screencasting -------
+	services.pipewire = {
+	  enable = true;
+	  audio.enable = true;
+	  pulse.enable = true;
+	  alsa.enable = true;
+	  alsa.support32Bit = true;
+	};
+
+	xdg.portal = {
+	  xdgOpenUsePortal = true;
+	  enable = true;
+	  extraPortals = [
+	    pkgs.xdg-desktop-portal-gnome
+	  ];
+	};
+
+	programs.niri.enable = true;
+	# ----------------------------
+
+
+	services.xserver.enable = false;
+	services.displayManager.enable = false; 
+
 
 	environment.systemPackages = [
+                pkgs.kdePackages.dolphin
+                pkgs.micro
+		pkgs.file
+pkgs.vdhcoapp
+                pkgs.rust-analyzer
+                pkgs.bat
+		nurpkgs.repos.hexadecimalDinosaur.jetbrains-fleet
+                pkgs.fzf
+		pkgs.emacs
+		pkgs.zed-editor		 
+		pkgs.kitty
+		pkgs.ranger
 
-		pkgs.i3
-		pkgs.xorg.xinit
-		pkgs.xorg.xauth
-		pkgs.hsetroot
-		pkgs.apple-cursor
+                pkgs.rofi
+
+		pkgs.gradia
+		
+	    pkgs.xdg-desktop-portal-gnome
+		 
+		# niri
+		pkgs.niri
+		pkgs.xwayland-satellite
+		pkgs.swaybg
 								
 		# utils
+	    pkgs.dbus
 		pkgs.nix-doc
 		pkgs.jq
 		pkgs.wget
@@ -27,11 +98,13 @@
 		pkgs.tree
 		pkgs.gettext
 		pkgs.greetd.tuigreet
+	    pkgs.wl-clipboard
 		pkgs.wireplumber
 		pkgs.podman
 		pkgs.bc
 		pkgs.pipewire
 		pkgs.cudatoolkit
+		pkgs.ffmpeg_6
 
 											
 		# terminal
@@ -71,12 +144,15 @@
 		pkgs.signal-desktop
 		pkgs.discord
 		pkgs.jetbrains.rust-rover
-
+		pkgs.jetbrains-toolbox
+		pkgs.telegram-desktop
+				
 		# games
 		pkgs.prismlauncher
 
         # other
 		pkgs.whitesur-cursors
+
 	];
 
 	
@@ -99,18 +175,6 @@
 	# zsh
 	programs.zsh.enable = true;
 
-	
-	# fonts
-	fonts = {
-		enableDefaultPackages = true;
-		packages = [
-			pkgs.terminus_font_ttf
-			pkgs.terminus_font
-			pkgs.roboto
-			pkgs.spleen
-			pkgs.nerd-fonts._0xproto
-		];
-	};
 
 
 	# container	

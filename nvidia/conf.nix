@@ -6,8 +6,8 @@
     enable = true;
   };
 
-  services.xserver.enable = true;
-  services.xserver.videoDrivers = [ "nvidia" ]; # "modesetting" "nvidia" ];
+#  services.xserver.enable = true;
+  services.xserver.videoDrivers = [ "nvidia" ];
 
 
   hardware.nvidia = {
