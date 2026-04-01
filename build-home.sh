@@ -2,34 +2,35 @@
 
 echo "building home..."
 
-mkdir -p "/home/eloi/.config/alacritty"
-cp "/etc/nixos/alacritty/alacritty.toml" "/home/eloi/.config/alacritty/"
-
+# niri
 mkdir -p "/home/eloi/.config/niri/"
 cp "/etc/nixos/niri/config.kdl" "/home/eloi/.config/niri/"
 
+
+# zsh
 cp "/etc/nixos/zsh/zshrc.bash" "/home/eloi/.zshrc"
 
-mkdir -p .zsh/completion
-cp "/etc/nixos/zsh/_edit-nixos" "/home/eloi/.zsh/completion/"
-cp "/etc/nixos/zsh/_open" "/home/eloi/.zsh/completion/"
+# micro
+sh /etc/nixos/zsh/micro/setup_micro.sh
 
-mkdir -p "/home/eloi/.config/micro/colorschemes"
-cp "/etc/nixos/micro/bindings.json" "/home/eloi/.config/micro/"
-cp "/etc/nixos/micro/settings.json" "/home/eloi/.config/micro/"
-cp "/etc/nixos/micro/my.micro" "/home/eloi/.config/micro/colorschemes"
+# rofi
+mkdir -p "/home/eloi/.config/rofi/"
+cp "/etc/nixos/rofi/config.rasi" "/home/eloi/.config/rofi/"
 
+# bin
 mkdir -p "/home/eloi/.local/bin/"
 cp "/etc/nixos/custom-bin/edit-nixos.bash" "/home/eloi/.local/bin/edit-nixos"
-cp "/etc/nixos/custom-bin/open.sh" "/home/eloi/.local/bin/open" 
+cp "/etc/nixos/rofi/open.sh" "/home/eloi/.local/bin/open" 
 chmod +x "/home/eloi/.local/bin/edit-nixos"
 chmod +x "/home/eloi/.local/bin/open"
 
-mkdir -p "/home/eloi/.emacs.d"
-cp "/etc/nixos/emacs/init.el" "/home/eloi/.emacs.d/init.el"
+#firefox
+mkdir -p "/home/eloi/.mozilla/firefox/custom/chrome"
+cp "/etc/nixos/firefox/userChrome.css" "/home/eloi/.mozilla/firefox/custom/chrome/"
+grep -q "toolkit.legacyUserProfileCustomizations.stylesheets" /home/eloi/.mozilla/firefox/custom/chrome/prefs.js \
+&& sed -i 's/user_pref("toolkit.legacyUserProfileCustomizations.stylesheets", false)/user_pref("toolkit.legacyUserProfileCustomizations.stylesheets", true)/' $PROFILE_PATH/prefs.js \
+|| echo 'user_pref("toolkit.legacyUserProfileCustomizations.stylesheets", true);' >> /home/eloi/.mozilla/firefox/custom/chrome/prefs.js
 
-mkdir -p "/home/eloi/.emacs.d/themes"
-cp "/etc/nixos/emacs/noctilux-theme.el" "/home/eloi/.emacs.d/themes/noctilux-theme.el"
 
 chown -R eloi:users /home/eloi
 

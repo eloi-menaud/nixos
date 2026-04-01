@@ -1,9 +1,17 @@
+output "HDMI-A-1" {
+    mode "3840x2160@60"
+    scale 1.3
+}
+output "HDMI-A-2" {
+    mode "3840x2160@60"
+    scale 1.3
+}
 
 debug {
     preview-render "screencast"
 }
 window-rule {
-    geometry-corner-radius 0
+    geometry-corner-radius 6
     clip-to-geometry true
     open-focused true
 }
@@ -12,47 +20,68 @@ window-rule {
 	match app-id="kitty"
 	default-column-width { proportion 0.5; }
 }
-
 window-rule {
-	match title="^(Confirm|Rename|Push)"
-	open-floating true
+  match app-id="signal"
+  default-column-width { proportion 0.5; }
 }
 window-rule {
-	match title="^(win)"
-	open-floating true
+  match app-id="krita"
+  match app-id="discord"
+  default-floating-position x=50 y=50 relative-to="top-left"
 }
 
 window-rule {
-	match title="monitoring"
-	open-floating true
+    match app-id="org.pulseaudio.pavucontrol" 
+    open-floating true
+    default-column-width  { fixed 800; }
+    default-window-height { fixed 600; }
+    default-floating-position x=1920 y=50 relative-to="bottom"
+}
+
+window-rule{
+  match app-id="dev.zed.Zed"
+  border{
+    width 0
+  }
+}
+
+gestures {
+    hot-corners {
+        top-right
+    }
 }
 
 
 spawn-at-startup "kitty"
-spawn-at-startup "firefox"
-spawn-at-startup "swaybg" "-i" "/etc/nixos/niri/wp.jpg"
 spawn-at-startup "xwayland-satellite"
 
-
 layout {
-    gaps 0
+    background-color "#000000"
+    gaps 5
 
     default-column-width { proportion 1.0; }
 
-	preset-column-widths {
-	    proportion 0.5
+  	preset-column-widths {
+      proportion 0.5
 	    proportion 1.0
-	}
+    }
 
 
+  	preset-window-heights{
+      proportion 0.5
+	    proportion 1.0
+    }
     focus-ring {
-    	width 0
+      off
   	}
-
+    always-center-single-column
   	border {
-  	    width 1
-  	    active-color   "#555"
-  	    inactive-color "#000"
+      width 1
+      active-color "#784587"
+      inactive-color "#2A2A2A"
+  	}
+    insert-hint {
+    	color "#1483FF60"
   	}
 }
 
@@ -64,26 +93,24 @@ animations {
 
 overview {
     zoom 0.3
-    backdrop-color "#101010"
+    backdrop-color "#202020"
 }
 
 binds {
 
-    Mod+Shift+Slash { show-hotkey-overlay; }
-    Mod+T                 hotkey-overlay-title="Open a Terminal: kitty"     { spawn "kitty"; }
-    Mod+space             hotkey-overlay-title="Overview"                   { toggle-overview; }
-    Mod+backspace         hotkey-overlay-title="Close current window"       { close-window; }
-    Mod+BracketLeft       hotkey-overlay-title="Focus Left window"          { focus-column-left; }
-    Mod+BracketRight      hotkey-overlay-title="Focus Right window"         { focus-column-right; }
-	Mod+BackSlash         hotkey-overlay-title="Switch window size"         { switch-preset-column-width; }
-    Mod+Ctrl+BracketLeft  hotkey-overlay-title="Move window to Left"        { move-column-left; }
-    Mod+Ctrl+BracketRight hotkey-overlay-title="Move window to Right"       { move-column-right; }
-    Mod+S                 hotkey-overlay-title="Screeshot"                  { screenshot; }
-    Mod+Escape            hotkey-overlay-title="Quit niri, got to tty"      { quit; }
-	Mod+Equal             hotkey-overlay-title="Volume up +5%"              { spawn "wpctl set-volume @DEFAULT_AUDIO_SINK@ 10%+"; }
-	Mod+Minus             hotkey-overlay-title="Volume up -5%"              { spawn "wpctl set-volume @DEFAULT_AUDIO_SINK@ 10%-"; }
+  Mod+Shift+Slash { show-hotkey-overlay; }
+  Mod+space             hotkey-overlay-title="Open app menu"              { spawn "open"; }
+  Mod+backspace         hotkey-overlay-title="Close current window"       { close-window; }
+  Mod+MouseRight        hotkey-overlay-title="Switch Window Width"        { switch-preset-window-width; }
+  Mod+BackSlash         hotkey-overlay-title="Switch Window Width"        { switch-preset-window-width; }
+  
+  Mod+BracketLeft       hotkey-overlay-title="Focus Prev window"          { focus-window-up-or-column-left; }
+  Mod+BracketRight      hotkey-overlay-title="Focus Next window"          { focus-window-down-or-column-right; }
+  Mod+Ctrl+BracketLeft  hotkey-overlay-title="split horizontaly"          { consume-or-expel-window-left; }
+  Mod+Ctrl+BracketRight hotkey-overlay-title="split horizontaly"          { consume-or-expel-window-right; }
 
-
+  Mod+S                 hotkey-overlay-title="Screeshot"                  { screenshot; }
+  Mod+Escape            hotkey-overlay-title="Quit niri, got to tty"      { quit; }
 }
 
 environment {
@@ -99,7 +126,7 @@ environment {
 
 cursor {
     xcursor-theme "WhiteSur-cursors"
-    xcursor-size 10
+    xcursor-size 100
     hide-when-typing
 }
 

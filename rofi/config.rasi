@@ -1,0 +1,44 @@
+mainbox{
+  background-color: black;
+}
+window{
+  background-color: black;
+  border-color: #505050;
+  width: 500px;
+  border-radius: 6px;
+}
+
+inputbar{
+  enabled: false;
+}
+
+message{
+  enabled: false;
+}
+
+
+
+listview{
+  fixed-height: false;
+  background-color: black;
+  border: none;
+  scrollbar: false;
+}
+
+
+element normal.normal{
+  color: #A0A0A0;
+  background-color: black;
+}
+element alternate.normal{
+  color: #A0A0A0;
+  background-color: black;
+}
+
+element selected.normal{
+  color: white;
+  background-color: black;
+}
+element-text{
+  highlight: #386aff;
+}

@@ -1,0 +1,121 @@
+/* toolkit.legacyUserProfileCustomizations.stylesheets */
+:root{
+    --bg: black;
+    --overlay: hsl(0,0%,8%);
+    --overlay-2: hsl(0,0%,14%);
+    --overlay-3: hsl(0,0%,27%);
+}
+
+
+/* tab section (first raw on nativ Chrome ui) */
+#tabbrowser-arrowscrollbox-periphery, /* tab [+] button */
+#alltabs-button,                      /* tab [v] button */
+hbox.titlebar-spacer,                 /* tab left spacer */
+hbox.titlebar-buttonbox-container,    /* window [-] [o] [x] button */
+#customizableui-special-spring1,      /* don't know */
+#customizableui-special-spring2,      /* don't know */
+tab.tabbrowser-tab:not([pinned], [fadein]),
+
+/* url section (seconf raw on nativ Chrome ui) */
+#firefox-view-button,                 /* firefox view button */
+#reload-button,                       /* reload page button */
+#fxa-toolbar-menu-button,             /* user profile-picture icon */
+#PanelUI-menu-button,                 /* toolbar [≡] button */
+#back-button,                         /* back page [<-] button */
+#forward-button,                      /* nex page [->] button */
+image.tab-close-button.close-icon,    /* close tav [x] button */
+
+/* in-url icons */
+#urlbar-searchmode-switcher,          /* search engine icon */
+#tracking-protection-icon-container,  /* https icon*/
+#identity-icon-box,                   /* verified domain icon */
+#reader-mode-button,                  /* reader mode icon */
+#translations-button,                 /* translation icon */
+#PersonalToolbar                      /* 3th section with pinned link etc...*/
+{                 
+    display:  none !important;
+}
+
+
+#tabbrowser-tabs{ /* tabs container */
+    border-left: none !important;
+}
+
+
+
+/* url search bar container */
+#urlbar-container{
+    flex: auto !important;
+
+    /* giving left space between input zone and left icons */
+    moz-input-box.urlbar-input-box{
+        padding-left: 10px !important;
+    }
+}
+
+
+#navigator-toolbox{
+    /* instead of 2 raws (tags / url), using juste 1 :
+      [ navigation | search | plugin ] [ tabs             ]
+                 500px                    rest of space
+    */
+    display: grid; 
+    grid-template-columns: 500px 1fr;
+    grid-template-areas:
+    "div2 div1"
+    "div3 div3";
+
+    /* [ navigation | search | plugin ] */
+    #nav-bar {
+        grid-area: div2;
+        background-color: var(--bg) !important;
+    }
+    
+    /* [ tabs      ] */
+    #TabsToolbar {
+        grid-area: div1;
+        background-color: var(--bg) !important;
+        border-left: 1px solid #3a3944 !important;
+    }
+}
+
+
+tab.tabbrowser-tab{
+    max-width: 150px !important;
+}
+
+
+/* fine thune spacing */
+#TabsToolbar{
+  padding-bottom: 3px;
+}
+#nav-bar-customization-target{
+  padding: 3px;
+}
+
+
+
+/* color of tabs */
+vbox.tab-background{
+    background-color: var(--overlay) !important;
+}
+
+/* color of current tab */
+tab:where([visuallyselected]) vbox.tab-background{
+    background-color: var(--overlay-2) !important;
+}
+
+
+/* color of url (search bar) */
+.urlbar:is([focused],[open]) > .urlbar-background,
+.urlbar-background {
+  background-color: var(--overlay) !important;
+}
+/* color of url/search result options */
+.urlbarView-row {
+  background-color: var(--overlay-2) !important;
+  
+  &[row-selectable]:is([selected]), &[row-selectable]:not([selected]):hover  {
+    background-color: var(--overlay-3) !important;
+  }
+}

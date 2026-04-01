@@ -1,5 +1,6 @@
 { config, pkgs, ... }:
 {
+
 	
 	imports =
 	[
@@ -55,7 +56,7 @@
 	users.users.eloi = {
 		isNormalUser = true;
 		description = "eloi menaud";
-		extraGroups = [ "networkmanager" "wheel" "podman" "video" "input" ];
+		extraGroups = [ "networkmanager" "wheel" "podman" "video" "input" "vboxsf" ];
 		packages = with pkgs; [];
 		shell = pkgs.zsh;
 	};
